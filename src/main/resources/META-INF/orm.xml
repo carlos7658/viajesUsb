@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2">
+
+	<entity class="co.edu.usbcali.viajesusb.domain.Cliente">
+	
+		<named-native-query name="Cliente.ConsultarClientesPorEstado" result-set-mapping="ConsultarClientesPorEstado">
+			<query>
+			
+				select
+				id_clie idClie,
+				numero_identificacion numeroIdentificacion,
+				nombre nombre,
+				primer_apellido primerApellido
+				from cliente 
+				where cliente.estado = :pEstado
+				
+			</query>
+		</named-native-query>
+		
+		<named-native-query name="Cliente.ConsultarClientesPorNumeroIdentificacion" result-set-mapping="ConsultarClientesPorNumeroIdentificacion">
+			<query>
+			
+				select
+				id_clie idClie,
+				numero_identificacion numeroIdentificacion,
+				nombre nombre
+				from cliente 
+				where cliente.numero_identificacion = :pIdentificacion
+				
+			</query>
+		</named-native-query>
+		
+		<named-native-query name="Cliente.ConsultarClientesPorTipoIdentificacion" result-set-mapping="ConsultarClientesPorTipoIdentificacion">
+			<query>
+			
+				select
+				cliente.id_clie idClie,
+				cliente.numero_identificacion numeroIdentificacion,
+				cliente.nombre nombre
+				from cliente, tipo_identificacion
+				where cliente.id_tiid=tipo_identificacion.id_tiid
+				and tipo_identificacion.codigo= :pTipoIdentificacion
+				
+			</query>
+		</named-native-query>
+		
+		<named-native-query name="Cliente.ConsultarClientesPorNombreEnOrdenAscendente" result-set-mapping="ConsultarClientesPorNombreEnOrdenAscendente">
+			<query>
+			
+				select
+				id_clie idClie,
+				numero_identificacion numeroIdentificacion,
+				nombre nombre
+				from cliente
+				where nombre like :pNombre
+				order by nombre asc
+				
+			</query>
+		</named-native-query>
+	
+	</entity>
+
+	
+</entity-mappings>
